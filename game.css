@@ -1,0 +1,121 @@
+:root {
+    --pixel-scale: 2px;
+    --grid-cell: calc( var(--pixel-scale) * 16);
+    --bg: #eee;
+ }
+ @media( min-width: 700px ) {
+    :root {
+       --pixel-scale: 3px;
+    }
+ }
+ @media( min-width: 1000px ) {
+    :root {
+       --pixel-scale: 4px;
+    }
+ }
+
+ html, body {
+    height: 100%;
+ }
+ 
+ body {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ 
+
+ .main {
+    /* This is just for Pen decoration */
+    width: calc(var(--pixel-scale) * 200);
+    height: calc(var(--pixel-scale) * 160);
+    outline: var(--pixel-scale) solid black;
+    z-index:1; 
+    position:relative;
+ }
+ 
+ .camera {
+    width: calc(var(--pixel-scale) * 200);
+    height: calc(var(--pixel-scale) * 160);
+    overflow: hidden;
+    background: #aaa;
+    position:relative;
+ }
+ 
+ .map {
+    image-rendering: pixelated;
+    background-image: url("map.png");
+    background-size: 100%;
+    width: calc(12 * var(--grid-cell));
+    height: calc(12 * var(--grid-cell));
+    position: relative;
+ }
+ 
+ .character {
+    width: calc(17px * 4);
+    height: calc(25px * 4);
+    position: absolute;
+    overflow:hidden;
+ }
+ 
+
+ .character_spritesheet {
+    position: absolute;
+    background: url("jack.png") no-repeat no-repeat;
+    background-size: 100%;
+    width: calc(51px * 4);
+    height: calc(100px * 4);
+    image-rendering: pixelated;
+ }
+ 
+ .character[facing="right"] .character_spritesheet {
+    background-position-y: calc( var(--pixel-scale) * -50 );
+ }
+ .character[facing="up"] .character_spritesheet {
+    background-position-y: calc( var(--pixel-scale) * -75 );
+ }
+ .character[facing="left"] .character_spritesheet {
+    background-position-y: calc( var(--pixel-scale) * -25 );
+ }
+ .character[walking="true"] .character_spritesheet {
+    animation: walkAnimation 0.6s steps(3) infinite; 
+ }
+ 
+ @keyframes walkAnimation {
+   from {
+     transform: translate3d(0%,0%,0);
+   }
+   to {
+     transform: translate3d(-100%,0%,0);
+   }
+ }
+ 
+ 
+ .corner_topleft,
+ .corner_topright,
+ .corner_bottomleft,
+ .corner_bottomright {
+    position: absolute;
+    width: var(--pixel-scale);
+    height: var(--pixel-scale);
+    background: var(--bg);
+    z-index:2;
+ }
+ 
+ .corner_topleft {
+    top: calc(var(--pixel-scale) * -1);
+    left: calc(var(--pixel-scale) * -1);
+ }
+ .corner_topright {
+    top: calc(var(--pixel-scale) * -1);
+    right: calc(var(--pixel-scale) * -1);
+ }
+ .corner_bottomleft {
+    bottom: calc(var(--pixel-scale) * -1);
+    left: calc(var(--pixel-scale) * -1);
+ }
+ .corner_bottomright {
+    bottom: calc(var(--pixel-scale) * -1);
+    right: calc(var(--pixel-scale) * -1);
+ }
